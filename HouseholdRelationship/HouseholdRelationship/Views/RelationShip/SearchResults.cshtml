@@ -1,0 +1,50 @@
+﻿
+@{
+
+    IEnumerable<HouseholdRelationship.ServiceReference1.UserSearchInfo_table> houseHoldDatas = Session["UserSearch"] as IEnumerable<HouseholdRelationship.ServiceReference1.UserSearchInfo_table>;
+
+}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+@if (houseHoldDatas!=null&&houseHoldDatas.ToList().Count>0)
+{
+    <table class="table table-hover table-borderless table-secondary" id="table">
+        <thead class="thead-dark">
+            <tr class="bg-dark">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @foreach (HouseholdRelationship.ServiceReference1.UserSearchInfo_table data in houseHoldDatas)
+        {
+
+        <tr>
+            <td>@data.firstName</td>
+            <td>@data.lastName</td>
+            <td>@data.dateofBirth</td>
+            <td>@data.gender</td>
+            <td>@Html.ActionLink("Edit", "EditRelationShipDetails", data)</td>
+        </tr>
+
+        }
+
+    </table>
+
+}
+<script type='text/javascript'>
+    $('#table').dataTable({
+        "bSort": true,
+        "paging": true,
+        "iDisplayLength": 5,
+        "info": false,
+        "lengthChange": false,
+        "bFilter": false
+    });
+</script>

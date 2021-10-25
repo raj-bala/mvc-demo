@@ -1,0 +1,77 @@
+﻿@model HouseHoldRelationShips.Models.UserDetails
+
+@{
+    ViewBag.Title="SignUp";
+}
+
+
+<style>
+    .required {
+        content: "*";
+        color: red;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="mx-auto text-center"><a href="@Url.Action("LogIn","Home")">Logon</a> if you are an existing user </div>
+    <div class="card mx-auto" style="width:21rem;">
+        <h4 class="card-header text-center bg-transparent text-dark">SignUp</h4>
+        <div class="card-body mx-auto">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <span class="required">*</span>
+                @Html.LabelFor(model => model.username)
+
+                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                <span class="required">*</span>
+                @Html.LabelFor(model => model.email)
+
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                <span class="required">*</span>
+                @Html.LabelFor(model => model.password)
+
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+
+                @Html.Label("Confirm Password")
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" />
+
+
+
+            </div>
+
+            <div class="form-group text-light">
+
+                <input type="submit" value="Submit" formaction="SignUp" class="btn btn-block btn-success" />
+
+            </div>
+            <div class="text-danger text-center">
+                @Session["message"]
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<HouseholdRelationship.ServiceReference1.Household_Table>
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tabs").tabs();
+    });
+</script>
+<nav class="navbar bg-light  fixed-top">
+    <img src="~/Content/themes/base/images/family.jpg" style="width:100px;height:100px">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active justify-content-md-start">
+            <a class="nav-link"><h3>Hello @Session["user"]</h3> </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item active  text-right">
+            <a class="nav-link" href='@Url.Action("Welcome", "Home")'><h4>LogOut</h4></a>
+        </li>
+    </ul>
+</nav>
+<br /><br /><br />
+<h3>Household Relationship</h3>
+Please select how the family members are related to each other.
+@using (Html.BeginForm())
+{
+
+    <div class="jumbotron">
+        @if (Model!=null)
+        {
+            <div id="tabs">
+                <ul>
+                    @foreach (var item in Model)
+                    {
+
+                        <li style="background-color:deepskyblue"> <a href=#@item.firstName@item.lastName><h6>@item.firstName @item.lastName</h6></a></li>
+
+                    }
+                </ul>
+                <br />
+                <div class="text-center"> <h6>Member Relationships</h6></div>
+                <hr />
+                @foreach (var item in Model)
+                {
+
+                    <div id=@item.firstName@item.lastName class="card-body">
+                        @foreach (var items in Model)
+                        {
+                            if (item.userID!=items.userID)
+                            {
+                                <div class=" row">
+                                    <div class="col-sm-4 col-md-4 col-lg-4" style="font-display:fallback">RelationShip to @items.firstName@items.lastName    </div>
+                                    <div class="col-sm-8 col-md-8 col-lg-8 ">
+                                        <select name=@items.userID@item.userID id=@items.userID@item.userID class="form-control bs-popover-right alert-link ">
+                                            <option value="" selected>Please Select Relation</option>
+                                            <option value="Mother">Mother</option>
+                                            <option value="Father">Father</option>
+                                            <option value="Daughter">Daughter</option>
+                                            <option value="Son">Son</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                    </div>
+
+
+                }
+            </div>
+        }
+        <br />
+        <div class="row down">
+            <div class="form-group col-lg-6 col-sm-12 col-md-6 text-left">
+
+                <input type="submit" value="Save and Exit" class="btn btn-primary" formaction="SaveAndExitMappings" onclick="location.href='@Url.Action(" SaveAndExitMappings","RelationShip" )'" />
+
+            </div>
+            <div class="form-group col-md-6 col-lg-6 col-sm-12 text-right">
+
+                <input type="submit" value="Back" class="btn btn-primary" formaction="CreateMembers" onclick="location.href='@Url.Action(" CreateMembers","RelationShip" )'" />
+
+
+
+
+                <input type="submit" value="Submit" formaction="AddRelationShips" class="btn btn-primary" onclick="location.href='@Url.Action(" AddRelationShips","RelationShip" )'" />
+
+            </div>
+        </div>
+    </div>
+    <div class="alert-danger text-center">
+        @Session["message"]
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/RelationShip/GetRelations",
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+
+                    var id = response[i].parentUserId.toString() + response[i].relationUserId.toString();
+
+                    $('select[name=' + id + ']').val(response[i].relationship);
+                }
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+
+        });
+    })
+</script>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,179 @@
+﻿@model HouseHoldRelationShips.Models.HouseHoldData
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style>
+    .required {
+        content: "*";
+        color: red;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#date").datepicker({
+            
+            changeMonth: true,
+            changeYear: true});
+     
+    });
+    function AgeValidation()
+    {
+        var date = $('#date').val();
+        var today = new Date();
+        var diff = today.getFullYear() - new Date(date).getFullYear();
+        console.log(diff);
+        if (diff > 125)
+        {
+            alert("Age Cannot be greater than 125 years");
+            $('#date').val('');
+        }
+    };
+</script>
+
+@{
+
+    IEnumerable<HouseHoldRelationShips.Models.HouseHoldData> houseHoldDatas = Session["list"] as IEnumerable<HouseHoldRelationShips.Models.HouseHoldData>;
+
+}
+<nav class="navbar bg-light fixed-top">
+    <img src="~/Content/themes/base/images/family.jpg" style="width:100px;height:100px">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active justify-content-md-start">
+            <a class="nav-link" href="#"><h3>Welcome @Session["user"]</h3> </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item active  text-right">
+            <a class="nav-link" href='@Url.Action("Welcome", "Home")'><h4>LogOut</h4></a>
+        </li>
+    </ul>
+</nav>
+<br /><br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <h4>Household Member 1 of 1</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-row">
+            <div class="form-group col-md-4 col-lg-4">
+                <span class="required">*</span>
+                @Html.LabelFor(model => model.firstName)
+
+                @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+
+
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 ">
+
+                @Html.LabelFor(model => model.middleName)
+
+                @Html.EditorFor(model => model.middleName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.middleName, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4">
+                <span class="required">*</span>
+                @Html.LabelFor(model => model.lastName)
+
+                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4 col-lg-4">
+
+                @Html.LabelFor(model => model.suffix)
+
+                @Html.DropDownListFor(model => model.suffix, new List<SelectListItem> {
+                             new SelectListItem { Value = "" , Text = "--Select--",Selected=true },
+                             new SelectListItem { Value = "Mr." , Text = "Mr." },
+                             new SelectListItem { Value = "Mrs." , Text = "Mrs." },
+                              new SelectListItem { Value = "Smt." , Text = "Smt." },
+                               new SelectListItem { Value = "Miss." , Text = "Miss." }
+                          },  new   { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.suffix, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4">
+                <span class="required">*</span>
+
+                @Html.LabelFor(model => model.dateofBirth)
+
+                @Html.TextBoxFor(model => model.dateofBirth, new { @class = "form-control", @id = "date" ,@onchange="return AgeValidation();" })
+                @Html.ValidationMessageFor(model => model.dateofBirth, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4">
+                <span class="required">*</span>
+                @Html.LabelFor(model => model.gender)
+                <div class=" form-row">
+                    <label>Male</label>
+                    @Html.RadioButtonFor(model => model.gender, "Male", new { htmlAttributes = new { @class = "form-control" } })
+                    <label>Female</label>
+                    @Html.RadioButtonFor(model => model.gender, "Female", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-12 col-sm-12 col-md-12 text-right">
+
+                <input type="submit" value="Add Member" formaction="CreateMembers" class="btn btn-success" />
+
+            </div>
+        </div>
+        <div class="alert-danger text-center">
+            @TempData["listError"]
+        </div>
+        <div class="alert-danger text-center">
+            @Session["message"]
+        </div>
+        <div>
+            @{
+                Html.RenderPartial("MemberInfo");
+            }
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-6 col-sm-12 col-md-6 text-left">
+                @if (houseHoldDatas.ToList().Count > 0)
+                {
+                    <input type="submit" value="Save and Exit" class="btn btn-primary" formaction="SaveAndExit" />
+                }
+
+
+            </div>
+            <div class="form-group col-md-6 col-lg-6 col-sm-12 text-right">
+
+                <input type="button" value="Back" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "RelationShip")'" />
+
+
+                @if (houseHoldDatas.ToList().Count > 0)
+                {
+                    <input type="submit" value="Next" class="btn btn-primary" formaction="AddToDataBase" />
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

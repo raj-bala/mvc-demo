@@ -1,0 +1,120 @@
+﻿@model HouseHoldRelationShips.Models.UserSearch
+@{
+
+    ViewBag.Title= "SearchUserDetails";
+}
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#inputdate").datepicker();
+    });
+
+</script>
+<nav class="navbar bg-light  fixed-top">
+    <img src="~/Content/themes/base/images/family.jpg" style="width:100px;height:100px">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active justify-content-md-start">
+            <a class="nav-link"><h3>Hello @Session["user"]</h3> </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item active  text-right">
+            <a class="nav-link" href='@Url.Action("Welcome", "Home")'><h4>LogOut</h4></a>
+        </li>
+    </ul>
+</nav>
+<br /><br />
+<h3>UserSearch</h3>
+<hr />
+Use any of the below combination of fields to search through all the customers
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="jumbotron">
+
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-row">
+            <div class="form-group col-md-4 col-lg-4">
+
+                @Html.LabelFor(model => model.firstName)
+
+                @Html.TextBoxFor(model => model.firstName, new { @class = "form-control", @id = "inputfname", @name = "inputfname" })
+                @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4">
+
+                @Html.LabelFor(model => model.lastName)
+
+                @Html.TextBoxFor(model => model.lastName, new { @class = "form-control", @id = "inputlname", @name = "inputlname" })
+                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-4 col-lg-4">
+
+                @Html.LabelFor(model => model.dateofBirth)
+
+                @Html.TextBoxFor(model => model.dateofBirth, new { @class = "form-control", @id = "inputdate", @name = "inputdate" })
+                @Html.ValidationMessageFor(model => model.dateofBirth, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4 col-lg-4">
+
+                @Html.LabelFor(model => model.applicationId)
+
+                @Html.TextBoxFor(model => model.applicationId, new { @class = "form-control", @id = "inputapp", @name = "inputapp" })
+                @Html.ValidationMessageFor(model => model.applicationId, "", new { @class = "text-danger" })
+
+
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4">
+
+                @Html.LabelFor(model => model.applicationStatus)
+
+                @Html.DropDownListFor(model => model.applicationStatus, new List<SelectListItem> {
+                             new SelectListItem { Value = "Approved" , Text = "Approved",Selected=true },
+
+
+                          },  new   { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.applicationStatus, "", new { @class = "text-danger" })
+
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+            &nbsp;
+            <div class="form-group col-lg-6 col-sm-12 col-md-6 text-right">
+
+                <input type="submit" value="Search" formaction="SearchUserDetails" class="btn btn-success" />
+
+            </div>
+
+        </div>
+        <div class="text-danger text-center">
+            <h4> @Session["message"] </h4>
+        </div>
+        <div>
+            @Html.Partial("SearchResults")
+        </div>
+    </div>
+
+   
+}
+
+

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/HouseHoldApp_Service.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HouseHoldApp_Service.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfHousehold_Table">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Household_Table" nillable="true" type="tns:Household_Table" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHousehold_Table" nillable="true" type="tns:ArrayOfHousehold_Table" />
+  <xs:complexType name="Household_Table">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="applicationId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dateofBirth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="middleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="suffix" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Household_Table" nillable="true" type="tns:Household_Table" />
+  <xs:complexType name="ArrayOfRelationship_Mapping">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Relationship_Mapping" nillable="true" type="tns:Relationship_Mapping" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRelationship_Mapping" nillable="true" type="tns:ArrayOfRelationship_Mapping" />
+  <xs:complexType name="Relationship_Mapping">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="parentUserId" type="xs:int" />
+      <xs:element minOccurs="0" name="relationUserId" type="xs:int" />
+      <xs:element minOccurs="0" name="relationship" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="relationshipId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Relationship_Mapping" nillable="true" type="tns:Relationship_Mapping" />
+  <xs:complexType name="UserSearchInfo_table">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="applicationId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="applicationStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dateofBirth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserSearchInfo_table" nillable="true" type="tns:UserSearchInfo_table" />
+  <xs:complexType name="ArrayOfUserSearchInfo_table">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserSearchInfo_table" nillable="true" type="tns:UserSearchInfo_table" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserSearchInfo_table" nillable="true" type="tns:ArrayOfUserSearchInfo_table" />
+  <xs:complexType name="UserInfo_Table">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="role" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userId" type="xs:int" />
+      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserInfo_Table" nillable="true" type="tns:UserInfo_Table" />
+  <xs:complexType name="ArrayOfData_pdf">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Data_pdf" nillable="true" type="tns:Data_pdf" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfData_pdf" nillable="true" type="tns:ArrayOfData_pdf" />
+  <xs:complexType name="Data_pdf">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="applicationId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dateofBirth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="middleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="parentUserId" type="xs:int" />
+      <xs:element minOccurs="0" name="relationUserId" type="xs:int" />
+      <xs:element minOccurs="0" name="relationship" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="suffix" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Data_pdf" nillable="true" type="tns:Data_pdf" />
+  <xs:complexType name="ArrayOfUserInfo_Table">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfo_Table" nillable="true" type="tns:UserInfo_Table" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserInfo_Table" nillable="true" type="tns:ArrayOfUserInfo_Table" />
+</xs:schema>

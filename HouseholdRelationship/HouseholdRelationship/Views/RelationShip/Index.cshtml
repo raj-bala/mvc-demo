@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<nav class="navbar bg-light  fixed-top">
+    <img src="~/Content/themes/base/images/family.jpg" style="width:100px;height:100px">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active justify-content-md-start">
+            <a class="nav-link" href="#"><h3>Hello @Session["user"]</h3> </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav fixed-top">
+
+        <li class="nav-item active  text-right">
+            <a class="nav-link" href='@Url.Action("LogIn", "Home")'><h4>LogOut</h4></a>
+        </li>
+    </ul>
+</nav>
+<br /><br /><br /><br />
+<div class="card mx-auto" style="width: 22rem;">
+
+    <div class="card-body mx-auto">
+        @if ((string)Session["role"] == "Admin" || (string)Session["role"] == "User")
+        {
+            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("CreateMembers", "RelationShip")'">Create User</button>
+        }
+
+        <br /><br />
+        @if ((string)Session["role"] == "Admin")
+        {
+
+            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("SearchUserDetails", "RelationShip")'">Search User</button>
+        }
+    </div>
+</div>

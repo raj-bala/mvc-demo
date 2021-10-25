@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "AddRelationShips";
+}
+<nav class="navbar bg-light  fixed-top">
+    <img src="~/Content/themes/base/images/family.jpg" style="width:100px;height:100px">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active justify-content-md-start">
+            <a class="nav-link"><h3>Hello @Session["user"]</h3> </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item active  text-right">
+            <a class="nav-link" href='@Url.Action("Welcome", "Home")'><h4>LogOut</h4></a>
+        </li>
+    </ul>
+</nav>
+<br/><br /><br /><br />
+<table class="mx-auto jumbotron">
+    <tr>
+        <td>
+            Your Application Has been Submitted
+        </td>
+    </tr>
+    <tr>
+        <td>
+            For transaction receipt download<a href="@Url.Action("GeneratePDF","RelationShip")" >Click here</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="alert-danger">  @TempData["sessionTimeOut"]</div>
+        </td>
+        <td>
+            <div class="alert-danger">  @Session["message"]</div>
+        </td>
+    </tr>
+</table>
+

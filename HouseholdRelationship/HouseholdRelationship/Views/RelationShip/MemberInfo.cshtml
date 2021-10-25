@@ -1,0 +1,36 @@
+﻿@{
+
+    IEnumerable<HouseHoldRelationShips.Models.HouseHoldData> houseHoldDatas = Session["list"] as IEnumerable<HouseHoldRelationShips.Models.HouseHoldData>;
+
+}
+@if (houseHoldDatas!=null && houseHoldDatas.ToList().Count>0)
+{
+    <table class="table table-hover table-secondary">
+        <thead class="thead-dark">
+            <tr class="bg-dark">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Middle Name</th>
+                <th>Date of Birth</th>
+                <th>Suffix</th>
+                <th>Gender</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            @foreach (HouseHoldRelationShips.Models.HouseHoldData data in houseHoldDatas)
+            {
+                <tr>
+                    <td>@data.firstName</td>
+                    <td>@data.lastName</td>
+                    <td>@data.middleName</td>
+                    <td>@data.dateofBirth</td>
+                    <td>@data.suffix</td>
+                    <td>@data.gender</td>
+                    <td>@Html.ActionLink("Delete", "DeleteData", data)</td>
+                </tr>
+            }
+</table>
+    <div class="text-center alert-danger" >
+        @Session["message"]
+    </div>
+}
